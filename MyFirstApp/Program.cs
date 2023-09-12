@@ -4,13 +4,8 @@ var app = builder.Build();
 // app.MapGet("/", () => "Hello World!");
 app.Run(async (HttpContext context) =>
 {
-    context.Response.StatusCode = 200;
-
-    context.Response.Headers["MyKey"] = "my value";
-    context.Response.Headers["Server"] = "My Server";
-
-    await context.Response.WriteAsync("Hello");
-    await context.Response.WriteAsync(" World!");
+    System.IO.StreamReader reader = new StreamReader(context.Request.Body);
+    string body = await reader.ReadToEndAsync();
 });
 
 app.Run();
